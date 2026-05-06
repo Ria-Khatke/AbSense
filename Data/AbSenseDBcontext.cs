@@ -10,7 +10,7 @@
         public AbSenseDBcontext(DbContextOptions<AbSenseDBcontext> options) : base(options) { }
 
         public DbSet<StaffInfo> User { get; set; }
-        public DbSet<Holidayinfo> Holiday { get; set; }
+        public DbSet<HolidayInfo> Holiday { get; set; }
         public DbSet<HolidayBalance> HolidayBalance { get; set; }
     }
 
