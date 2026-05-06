@@ -1,12 +1,21 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AbSense.Data;
+using Microsoft.AspNetCore.Mvc;
 
 namespace AbSense.Controllers
 {
     public class User : Controller
     {
-        public IActionResult Index()
+
+        private readonly AbSenseDBcontext abSenseDBcontext;
+
+        public User(AbSenseDBcontext context)
         {
-            return View();
+            this.abSenseDBcontext = context;
+        }
+
+        public IActionResult login()
+        {
+            return View("Views/login.cshtml");
         }
     }
 }
