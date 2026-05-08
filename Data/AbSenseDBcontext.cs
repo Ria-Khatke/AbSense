@@ -1,17 +1,23 @@
-﻿namespace AbSense.Data
-{
-
-
-    using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
     using AbSense.Models;
-    
-    public class AbSenseDBcontext : DbContext // inherits the abilities from dbcontext 
+
+
+public class AbSenseDBcontext : DbContext // inherits the abilities from dbcontext 
+{
+    public AbSenseDBcontext(DbContextOptions<AbSenseDBcontext> options) : base(options) { }
+
+    public DbSet<StaffInfo> Staff { get; set; }
+    public DbSet<HolidayInfo> Holiday { get; set; }
+    public DbSet<HolidayBalance> HolidayBalance { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        public AbSenseDBcontext(DbContextOptions<AbSenseDBcontext> options) : base(options) { }
-
-        public DbSet<StaffInfo> User { get; set; }
-        public DbSet<HolidayInfo> Holiday { get; set; }
-        public DbSet<HolidayBalance> HolidayBalance { get; set; }
+        base.OnModelCreating(modelBuilder);
+        modelBuilder.Entity<StaffInfo>().ToTable("Staff");
+        modelBuilder.Entity<StaffInfo>().HasKey(s => s.StaffInfoId);
     }
+      }
 
-}
+
+
+

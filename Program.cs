@@ -1,4 +1,3 @@
-using AbSense.Data;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -27,8 +26,8 @@ app.UseRouting();
 app.UseAuthorization();
 
 app.MapControllerRoute(
-    name: "Login Page",
-    pattern: "{controller=User}/{action=login}/{id?}");
+    name: "default",
+    pattern: "{controller=Account}/{action=Login}/{id?}");
 
 
 app.Run();
