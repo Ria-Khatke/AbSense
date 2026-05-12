@@ -28,21 +28,14 @@ namespace AbSense.Controllers
 
             if (user != null)
             {
-                if (user.StaffRole == StaffRole.Manager)
+                if (user.StaffRole == StaffRole.Employee || user.StaffRole == StaffRole.Optometrists)
                 {
-                    return RedirectToAction("Manager_Dashboard");
-                }
-                else if(user.StaffRole == StaffRole.Admin) 
-                    {
-                    return RedirectToAction("Admin_Dashboard");
-                }
-                else
-                {
-                    return RedirectToAction("Staff_Dashboard");
+                    
+                    return RedirectToAction("Staff_Dashboard", "Dashboard");
                 }
             }
 
-            ViewBag.Error = "Invalid Input";
+            ViewBag.Error = "Incorrect Username or Password";
             return View();
         }
 
