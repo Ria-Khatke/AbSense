@@ -25,9 +25,14 @@ namespace AbSense.Controllers
                 
                 
             }
+            var user = abSenseDBcontext.Staff
+                .FirstOrDefault(u => u.FirstName == name && u.LastName == last_name);
+
 
             ViewBag.FirstName = name;
             ViewBag.LastName = last_name;
+
+            ViewBag.AllowedLeaves = user?.TotalAllowance ?? 0;
 
             return View();
         }

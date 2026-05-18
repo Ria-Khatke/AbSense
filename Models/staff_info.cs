@@ -19,17 +19,19 @@ namespace AbSense.Models
     public class StaffInfo
     {
         public int StaffInfoId { get; set; }
+
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Username { get; set; }
-        public string Password { get; set; }
+
+        public string PasswordHash { get; set; }
+
         public StaffType StaffType { get; set; }
-        public int AllowedLeaves { get; set; }
         public StaffRole StaffRole { get; set; }
         public bool IsActive { get; set; }
 
-        // Navigation properties
         public ICollection<HolidayInfo> HolidayInfos { get; set; }
+        public HolidayBalance HolidayBalance { get; set; }
     }
 
     public enum LeaveType
@@ -49,35 +51,34 @@ namespace AbSense.Models
     {
         public int HolidayInfoId { get; set; }
 
-        [ForeignKey("StaffInfo")]
         public int StaffInfoId { get; set; }
+        public StaffInfo StaffInfo { get; set; }
 
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
-        public LeaveType LeaveType { get; set; }
-        public string? Reason { get; set; }
-        public LeaveStatus Status { get; set; }
-        public string? ManagerComment { get; set; }
-        public DateTime CreatedAt { get; set; }
-        public DateTime UpdatedAt { get; set; }
 
-        // Navigation property
-        public StaffInfo StaffInfo { get; set; }
-        public ICollection<HolidayBalance> HolidayBalances { get; set; }
+        public LeaveType LeaveType { get; set; }
+        public LeaveStatus Status { get; set; }
+
+        public string? Reason { get; set; }
+        public string? ManagerComment { get; set; }
+
+        public DateTime CreatedAt { get; set; }
+        public DateTime? UpdatedAt { get; set; }
+
+        public int? ApprovedByStaffInfoId { get; set; }
+        public DateTime? ApprovedAt { get; set; }
     }
 
     public class HolidayBalance
     {
         public int HolidayBalanceId { get; set; }
-        
-        [ForeignKey("HolidayInfo")]
-        public int HolidayInfoId { get; set; }
 
-        public int AnnualAllowance { get; set; }
+        public int StaffInfoId { get; set; }
+        public StaffInfo StaffInfo { get; set; }
+
+        public int TotalAllowance { get; set; }
         public int UsedLeaves { get; set; }
         public int RemainingLeaves { get; set; }
-
-        // Navigation property
-        public HolidayInfo HolidayInfo { get; set; }
     }
 }

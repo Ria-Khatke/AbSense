@@ -24,7 +24,7 @@ namespace AbSense.Controllers
         {
 
             var user = abSenseDBcontext.Staff
-                .FirstOrDefault(u => u.Username == Username && u.Password == Password);
+                .FirstOrDefault(u => u.Username == Username && u.PasswordHash == Password);
 
             if (user != null)
             {
