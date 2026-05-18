@@ -19,6 +19,13 @@ namespace AbSense.Controllers
             var name = HttpContext.Session.GetString("FirstName");
             var last_name = HttpContext.Session.GetString("LastName");
 
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(last_name))
+            {
+                return RedirectToAction("Login", "Account");
+                
+                
+            }
+
             ViewBag.FirstName = name;
             ViewBag.LastName = last_name;
 

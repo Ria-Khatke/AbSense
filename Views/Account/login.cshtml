@@ -27,16 +27,16 @@
             </div>
 
             <button type="submit" class="loginbtn">Log in</button>
-
-            @if (ViewBag.ErrorMessage != null)
-            {
-                <p style="color: red; align-content: center; margin-top: 10px">THIS IS WRONG</p>
-            }
-                  
            
         </form>
+        @if (ViewBag.error == null || ViewBag.error1 == null )
+        {
+            <p style="color: red; align-content: center; margin-top: 10px">Incorrect username or password</p>
+            <p>If you don't have your credentials, ask your workplace to create an account for you'</p>
+
+        }
     </div>
-    <div class="Signin_box">
+    @* <div class="Signin_box">
          <div class="title-container">
             <h1 class="title">Sign in</h1>
         </div>
@@ -75,8 +75,10 @@
                     <i class='bx bxs-user'></i>
                 </select>
             </div>
+
+            <button type="submit" class="signin_btn">Create a new account</button>
             
         </form>
-    </div>
+    </div> *@
 
 </div>

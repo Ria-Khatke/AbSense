@@ -273,7 +273,7 @@ form {
 }
 
     .Signin_box button[type="submit"]:hover {
-        background: #165e53;
+        background: navy;
         transform: translateY(-1px);
     }
 
@@ -304,6 +304,10 @@ p[style*="color: red"] {
 .Signin_box::-webkit-scrollbar-thumb {
     background: var(--border);
     border-radius: 99px;
+}
+
+.signin_btn{
+    background: navy
 }
 
 /* ── Responsive ── */
