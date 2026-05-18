@@ -15,6 +15,13 @@ namespace AbSense.Controllers
 
         public IActionResult Staff_Dashboard()
         {
+
+            var name = HttpContext.Session.GetString("FirstName");
+            var last_name = HttpContext.Session.GetString("LastName");
+
+            ViewBag.FirstName = name;
+            ViewBag.LastName = last_name;
+
             return View();
         }
 

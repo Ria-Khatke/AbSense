@@ -41,13 +41,11 @@ namespace AbSense.Migrations
                     b.Property<int>("UsedLeaves")
                         .HasColumnType("int");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("HolidayBalanceId");
 
-                    b.ToTable("HolidayBalance");
+                    b.HasIndex("HolidayInfoId");
+
+                    b.ToTable("HolidayBalance", (string)null);
                 });
 
             modelBuilder.Entity("AbSense.Models.HolidayInfo", b =>
@@ -64,21 +62,17 @@ namespace AbSense.Migrations
                     b.Property<DateTime>("EndDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("LeaveType")
                         .HasColumnType("int");
 
                     b.Property<string>("ManagerComment")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("ManagerId")
-                        .HasColumnType("int");
-
                     b.Property<string>("Reason")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("StaffInfoId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime2");
@@ -89,16 +83,11 @@ namespace AbSense.Migrations
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Username")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("staffId")
-                        .HasColumnType("int");
-
                     b.HasKey("HolidayInfoId");
 
-                    b.ToTable("Holiday");
+                    b.HasIndex("StaffInfoId");
+
+                    b.ToTable("HolidayInfo", (string)null);
                 });
 
             modelBuilder.Entity("AbSense.Models.StaffInfo", b =>
@@ -139,7 +128,39 @@ namespace AbSense.Migrations
 
                     b.HasKey("StaffInfoId");
 
-                    b.ToTable("User");
+                    b.ToTable("Staff", (string)null);
+                });
+
+            modelBuilder.Entity("AbSense.Models.HolidayBalance", b =>
+                {
+                    b.HasOne("AbSense.Models.HolidayInfo", "HolidayInfo")
+                        .WithMany("HolidayBalances")
+                        .HasForeignKey("HolidayInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("HolidayInfo");
+                });
+
+            modelBuilder.Entity("AbSense.Models.HolidayInfo", b =>
+                {
+                    b.HasOne("AbSense.Models.StaffInfo", "StaffInfo")
+                        .WithMany("HolidayInfos")
+                        .HasForeignKey("StaffInfoId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("StaffInfo");
+                });
+
+            modelBuilder.Entity("AbSense.Models.HolidayInfo", b =>
+                {
+                    b.Navigation("HolidayBalances");
+                });
+
+            modelBuilder.Entity("AbSense.Models.StaffInfo", b =>
+                {
+                    b.Navigation("HolidayInfos");
                 });
 #pragma warning restore 612, 618
         }

@@ -30,13 +30,16 @@ namespace AbSense.Controllers
             {
                 if (user.StaffRole == StaffRole.Employee || user.StaffRole == StaffRole.Optometrists)
                 {
-                    
+                    HttpContext.Session.SetString("FirstName", user.FirstName);
+                    HttpContext.Session.SetString("LastName", user.LastName);
+
                     return RedirectToAction("Staff_Dashboard", "Dashboard");
                 }
             }
-
-            ViewBag.Error = "Incorrect Username or Password";
-            return View();
+            
+                ViewBag.Error = "Incorrect Username or Password";
+                return View();
+            
         }
 
     

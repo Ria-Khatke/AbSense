@@ -8,6 +8,16 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<AbSenseDBcontext>(option =>
 option.UseSqlServer(builder.Configuration.GetConnectionString("DbStringConnection")));
 
+// Add session services
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Set session timeout
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
+});
+
+
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
@@ -23,9 +33,11 @@ app.UseHttpsRedirection();
 
 app.UseRouting();
 
+
 app.UseAuthorization();
 app.UseStaticFiles();
-
+// Add session middleware
+app.UseSession();
 app.MapControllerRoute(
     name: "default",
     pattern: "{controller=Account}/{action=login}/{id?}");

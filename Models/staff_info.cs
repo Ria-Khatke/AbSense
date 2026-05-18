@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace AbSense.Models
 {
@@ -27,8 +28,8 @@ namespace AbSense.Models
         public StaffRole StaffRole { get; set; }
         public bool IsActive { get; set; }
 
-
-
+        // Navigation properties
+        public ICollection<HolidayInfo> HolidayInfos { get; set; }
     }
 
     public enum LeaveType
@@ -44,36 +45,39 @@ namespace AbSense.Models
         Rejected = 3
     }
 
-
     public class HolidayInfo
     {
         public int HolidayInfoId { get; set; }
-        public int staffId { get; set; }
-        public string Username { get; set; }
-        public string FirstName { get; set; }
+
+        [ForeignKey("StaffInfo")]
+        public int StaffInfoId { get; set; }
+
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public LeaveType LeaveType { get; set; }
-        public String? Reason { get; set; }
+        public string? Reason { get; set; }
         public LeaveStatus Status { get; set; }
-        public int ManagerId { get; set; }
-        public String? ManagerComment { get; set; }
+        public string? ManagerComment { get; set; }
         public DateTime CreatedAt { get; set; }
         public DateTime UpdatedAt { get; set; }
+
+        // Navigation property
+        public StaffInfo StaffInfo { get; set; }
+        public ICollection<HolidayBalance> HolidayBalances { get; set; }
     }
 
     public class HolidayBalance
     {
-        
         public int HolidayBalanceId { get; set; }
+        
+        [ForeignKey("HolidayInfo")]
         public int HolidayInfoId { get; set; }
-        public string Username { get; set; }
+
         public int AnnualAllowance { get; set; }
-        public  int UsedLeaves { get; set; }
+        public int UsedLeaves { get; set; }
         public int RemainingLeaves { get; set; }
 
+        // Navigation property
+        public HolidayInfo HolidayInfo { get; set; }
     }
-    
-        
-    
 }
