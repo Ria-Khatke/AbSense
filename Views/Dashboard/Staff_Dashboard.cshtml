@@ -27,7 +27,7 @@
                 <h2>Holidays booked</h2>
             </div>
             <div class="amount">
-                #number after manager accepts leaves
+                <p>Number after manager accepts leaves</p>
             </div>
         </div>
         <div class="box">
@@ -35,9 +35,17 @@
                 <h2>Pending approvals</h2>
             </div>
             <div class="amount">
-                #holidays yet to be approved
+                <p>@ViewBag.UserRequests</p>
             </div>
          </div>
+        <div class="box">
+            <div class="title">
+                <h2>Remaining Leaves</h2>
+            </div>
+            <div class="amount">
+                <p>@ViewBag.RemainingLeaves</p>
+            </div>
+        </div>
     </div>
     <div class=" Book_leave">
         <h1>Book your leave</h1>
@@ -45,6 +53,13 @@
         <form asp-action="Book_leave" asp-controller="Dashboard" method="post">
             <label for="Reason">Reason for Leave</label>
             <input type="text" name="Reason" value="" />
+
+            <label>Leave Type * </label>
+            <select name="leaveType" class="form-control" required>
+                <option value="General">General</option>
+                <option value="Sick">Sick</option>
+                <option value="Study">Study</option>
+            </select>
 
             <label for="StartDate">From * </label>
             <input type="date" name="StartDate" value="" required/>
