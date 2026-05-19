@@ -22,8 +22,8 @@ namespace AbSense.Controllers
             if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(last_name))
             {
                 return RedirectToAction("Login", "Account");
-                
-                
+
+
             }
             var user = abSenseDBcontext.Staff
                 .FirstOrDefault(u => u.FirstName == name && u.LastName == last_name);
@@ -32,7 +32,13 @@ namespace AbSense.Controllers
             ViewBag.FirstName = name;
             ViewBag.LastName = last_name;
 
-            ViewBag.AllowedLeaves = user?.TotalAllowance ?? 0;
+
+            var staff_id = HttpContext.Session.GetInt32("StaffInfoId");
+
+            var balance = abSenseDBcontext.HolidayBalances
+            .FirstOrDefault(b => b.StaffInfoId == staff_id);
+
+            ViewBag.AllowedLeaves = balance != null ? balance.TotalAllowance: 0;
 
             return View();
         }

@@ -32,6 +32,10 @@ namespace AbSense.Controllers
                 {
                     HttpContext.Session.SetString("FirstName", user.FirstName);
                     HttpContext.Session.SetString("LastName", user.LastName);
+                    HttpContext.Session.SetInt32("StaffInfoId", user.StaffInfoId);
+                    HttpContext.Session.SetString("Role", user.StaffRole.ToString());
+
+
 
                     return RedirectToAction("Staff_Dashboard", "Dashboard");
                 }

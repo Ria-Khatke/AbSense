@@ -22,15 +22,19 @@ namespace AbSense.Models
 
         public string FirstName { get; set; }
         public string LastName { get; set; }
+
         public string Username { get; set; }
 
         public string PasswordHash { get; set; }
 
         public StaffType StaffType { get; set; }
         public StaffRole StaffRole { get; set; }
+
         public bool IsActive { get; set; }
 
         public ICollection<HolidayInfo> HolidayInfos { get; set; }
+            = new List<HolidayInfo>();
+
         public HolidayBalance HolidayBalance { get; set; }
     }
 
@@ -79,6 +83,6 @@ namespace AbSense.Models
 
         public int TotalAllowance { get; set; }
         public int UsedLeaves { get; set; }
-        public int RemainingLeaves { get; set; }
     }
+
 }
