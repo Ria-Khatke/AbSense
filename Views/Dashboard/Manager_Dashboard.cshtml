@@ -1,0 +1,125 @@
+﻿@{
+    Layout = null;
+    ViewData["Title"] = "AbSense Manager Dashboard";
+}
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+    <link rel="stylesheet" href="/manager_dashboard.css" />
+</head>
+
+
+<!-- Top nav -->
+<nav class="topbar">
+    <span class="topbar-brand">Ab<span>Sense</span></span>
+    <div class="topbar-actions">
+        <a asp-action="Logout" method="post" asp-controller="Account">
+            <i class='bx bx-log-out'></i> Log out
+        </a>
+    </div>
+</nav>
+
+<div class="container">
+
+    <!-- Greeting -->
+    <div class="title">
+        <h1>Hello, @ViewBag.FirstName @ViewBag.LastName</h1>
+    </div>
+
+    <!-- Stat cards -->
+    <div class="card_container">
+        <div class="box">
+            <div class="title"><h2>Total Requests</h2></div>
+            <div class="amount">@ViewBag.AllowedLeaves</div>
+        </div>
+        <div class="box">
+            <div class="title"><h2>Holidays Booked</h2></div>
+            <div class="amount"><p>Pending approval</p></div>
+        </div>
+        <div class="box">
+            <div class="title"><h2>Pending Approvals</h2></div>
+            <div class="amount"><p>@ViewBag.UserRequests</p></div>
+        </div>
+        <div class="box">
+            <div class="title"><h2>Remaining Leaves</h2></div>
+            <div class="amount"><p>@ViewBag.RemainingLeaves</p></div>
+        </div>
+    </div>
+
+    <!-- Book leave -->
+    <div class="Book_leave">
+        <div class="Book_leave-header">
+            <i class='bx bx-calendar-plus'></i>
+            <h1>Book your leave</h1>
+        </div>
+        <div class="Book_leave-body">
+            <p>Fields marked with an asterisk (*) are required before submitting.</p>
+
+            <form asp-action="Book_leave" asp-controller="Dashboard" method="post">
+
+                <div class="form-group full">
+                    <label for="Reason">Reason for Leave</label>
+                    <input type="text" name="Reason" id="Reason" placeholder="e.g. Annual holiday" />
+                </div>
+
+                <div class="form-group">
+                    <label>Leave Type *</label>
+                    <select name="leaveType" required>
+                        <option value="">Select type...</option>
+                        <option value="General">General</option>
+                        <option value="Sick">Sick</option>
+                        <option value="Study">Study</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="TotalDays">Total Days</label>
+                    <input type="number" name="TotalDays" id="TotalDays" placeholder="0" min="1" />
+                </div>
+
+                <div class="form-group">
+                    <label for="StartDate">From *</label>
+                    <input type="date" name="StartDate" id="StartDate" required />
+                </div>
+
+                <div class="form-group">
+                    <label for="EndDate">To *</label>
+                    <input type="date" name="EndDate" id="EndDate" required />
+                </div>
+
+                @if (TempData["Error"] != null)
+                {
+                    <div class="alert alert-error full">
+                        <i class='bx bx-error-circle'></i>
+                        @TempData["Error"]
+                    </div>
+                }
+
+                @if (TempData["Success"] != null)
+                {
+                    <div class="alert alert-success full">
+                        <i class='bx bx-check-circle'></i>
+                        @TempData["Success"]
+                    </div>
+                }
+
+                @if (ViewBag.RemainingLeaves <= 0)
+                {
+                    <div class="alert alert-warning full">
+                        <i class='bx bx-info-circle'></i>
+                        You don't have enough remaining leaves to book this request.
+                    </div>
+                }
+
+                <button type="submit" class="submit_form">
+                    <i class='bx bx-send'></i>
+                    Submit request
+                </button>
+
+            </form>
+        </div>
+    </div>
+
+</div>

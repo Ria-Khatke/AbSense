@@ -1,0 +1,423 @@
+﻿@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300&family=DM+Sans:opsz,wght@9..40,300;9..40,400;9..40,500;9..40,600&display=swap');
+
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+:root {
+    --navy: #0B1F33;
+    --navy-mid: #163148;
+    --teal: #1A8A7A;
+    --teal-glow: rgba(26,138,122,0.18);
+    --teal-lt: #E2F4F1;
+    --sky: #EDF3F8;
+    --white: #FFFFFF;
+    --muted: #6E7E8E;
+    --border: #D6E0EA;
+    --text: #182330;
+    --error-bg: #FEF0EE;
+    --error: #C0392B;
+    --success-bg: #EDFAF5;
+    --success: #1A7A55;
+    --radius-lg: 16px;
+    --radius-md: 10px;
+    --shadow-sm: 0 2px 10px rgba(11,31,51,0.07);
+    --shadow-md: 0 6px 28px rgba(11,31,51,0.11);
+}
+
+/* ── Body & page ── */
+html, body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sky);
+    background-image: radial-gradient(ellipse 70% 50% at 0% 0%, rgba(26,138,122,0.09) 0%, transparent 55%), radial-gradient(ellipse 50% 40% at 100% 100%, rgba(11,31,51,0.07) 0%, transparent 55%);
+    min-height: 100vh;
+    color: var(--text);
+}
+
+/* ── Top nav bar ── */
+.topbar {
+    background: var(--navy);
+    padding: 0 40px;
+    height: 58px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: 0 2px 16px rgba(11,31,51,0.2);
+}
+
+.topbar-brand {
+    font-family: 'Fraunces', serif;
+    font-size: 1.25rem;
+    font-weight: 400;
+    color: var(--white);
+    letter-spacing: 0.02em;
+}
+
+    .topbar-brand span {
+        color: var(--teal);
+    }
+
+.topbar-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+    .topbar-actions a {
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: rgba(255,255,255,0.55);
+        text-decoration: none;
+        padding: 6px 14px;
+        border-radius: 6px;
+        border: 1px solid rgba(255,255,255,0.12);
+        transition: all 0.15s;
+    }
+
+        .topbar-actions a:hover {
+            color: var(--white);
+            border-color: rgba(255,255,255,0.30);
+            background: rgba(255,255,255,0.07);
+        }
+
+/* ── Main layout ── */
+.container {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 40px 24px 60px;
+    display: flex;
+    flex-direction: column;
+    gap: 36px;
+}
+
+/* ── Greeting ── */
+.title {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+    .title h1 {
+        font-family: 'Fraunces', serif;
+        font-size: 2.2rem;
+        font-weight: 400;
+        font-style: italic;
+        color: var(--navy);
+        letter-spacing: -0.5px;
+        line-height: 1.15;
+    }
+
+        .title h1 em {
+            font-style: normal;
+            color: var(--teal);
+        }
+
+.title-sub {
+    font-size: 0.85rem;
+    color: var(--muted);
+    margin-top: 2px;
+}
+
+/* ── Stat cards ── */
+.card_container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+}
+
+.box {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    padding: 22px 20px 20px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+    .box:hover {
+        transform: translateY(-3px);
+        box-shadow: var(--shadow-md);
+    }
+
+    /* Top accent stripe */
+    .box:nth-child(1) {
+        --accent: #1A8A7A;
+    }
+
+    .box:nth-child(2) {
+        --accent: #2471A3;
+    }
+
+    .box:nth-child(3) {
+        --accent: #884EA0;
+    }
+
+    .box:nth-child(4) {
+        --accent: #C0392B;
+    }
+
+    .box::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--accent);
+    }
+
+    /* Subtle background tint */
+    .box::after {
+        content: '';
+        position: absolute;
+        bottom: -20px;
+        right: -20px;
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        background: var(--accent);
+        opacity: 0.05;
+        pointer-events: none;
+    }
+
+    .box .title {
+        gap: 0;
+    }
+
+        .box .title h2 {
+            font-size: 0.68rem;
+            font-weight: 600;
+            letter-spacing: 0.07em;
+            text-transform: uppercase;
+            color: var(--muted);
+        }
+
+    .box .amount {
+        font-family: 'Fraunces', serif;
+        font-size: 2.2rem;
+        font-weight: 300;
+        color: var(--navy);
+        line-height: 1;
+        position: relative;
+        z-index: 1;
+    }
+
+        .box .amount p {
+            font-family: 'Fraunces', serif;
+            font-size: 1.6rem;
+            font-weight: 300;
+            color: var(--navy);
+            line-height: 1.2;
+        }
+
+/* ── Book leave section ── */
+.Book_leave {
+    background: var(--white);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--border);
+    overflow: hidden;
+}
+
+.Book_leave-header {
+    background: var(--navy);
+    padding: 24px 36px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+    .Book_leave-header i {
+        font-size: 1.4rem;
+        color: var(--teal);
+    }
+
+    .Book_leave-header h1 {
+        font-family: 'Fraunces', serif;
+        font-size: 1.3rem;
+        font-weight: 400;
+        color: var(--white);
+        letter-spacing: -0.2px;
+    }
+
+.Book_leave-body {
+    padding: 32px 36px;
+}
+
+    .Book_leave-body > p {
+        font-size: 0.8rem;
+        color: var(--muted);
+        margin-bottom: 28px;
+        line-height: 1.6;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--border);
+    }
+
+/* ── Form ── */
+.Book_leave form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 28px;
+    align-items: start;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+    .form-group.full {
+        grid-column: 1 / -1;
+    }
+
+.Book_leave form label {
+    font-size: 0.68rem;
+    font-weight: 600;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+    color: var(--muted);
+}
+
+.Book_leave form input[type="text"],
+.Book_leave form input[type="date"],
+.Book_leave form input[type="number"],
+.Book_leave form select {
+    width: 100%;
+    height: 44px;
+    padding: 0 14px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    border-radius: var(--radius-md);
+    border: 1.5px solid var(--border);
+    background: var(--sky);
+    color: var(--text);
+    outline: none;
+    transition: border-color 0.18s, box-shadow 0.18s, background 0.18s;
+    -webkit-appearance: none;
+    appearance: none;
+}
+
+    .Book_leave form input:focus,
+    .Book_leave form select:focus {
+        border-color: var(--teal);
+        box-shadow: 0 0 0 3px var(--teal-glow);
+        background: var(--white);
+    }
+
+.Book_leave form input::placeholder {
+    color: #AAB4BE;
+}
+
+/* ── Alerts ── */
+.alert {
+    grid-column: 1 / -1;
+    padding: 10px 16px;
+    border-radius: var(--radius-md);
+    font-size: 0.82rem;
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.alert-error {
+    background: var(--error-bg);
+    color: var(--error);
+    border: 1px solid rgba(192,57,43,0.18);
+}
+
+.alert-success {
+    background: var(--success-bg);
+    color: var(--success);
+    border: 1px solid rgba(26,122,85,0.18);
+}
+
+.alert-warning {
+    background: #FEF9E7;
+    color: #9A6A00;
+    border: 1px solid rgba(154,106,0,0.18);
+}
+
+/* ── Submit button ── */
+.submit_form {
+    grid-column: 1 / -1;
+    margin-top: 10px;
+    height: 48px;
+    background: var(--navy);
+    color: var(--white);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border: none;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background 0.18s, transform 0.12s, box-shadow 0.18s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+    .submit_form:hover {
+        background: var(--teal);
+        transform: translateY(-1px);
+        box-shadow: 0 4px 16px rgba(26,138,122,0.28);
+    }
+
+    .submit_form:active {
+        transform: translateY(0);
+        box-shadow: none;
+    }
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+    .topbar {
+        padding: 0 18px;
+    }
+
+    .card_container {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .Book_leave-header, .Book_leave-body {
+        padding: 20px;
+    }
+
+    .Book_leave form {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: 1;
+    }
+
+    .submit_form {
+        grid-column: 1;
+    }
+
+    .alert {
+        grid-column: 1;
+    }
+}
+
+@media (max-width: 480px) {
+    .card_container {
+        grid-template-columns: 1fr;
+    }
+
+    .title h1 {
+        font-size: 1.7rem;
+    }
+}

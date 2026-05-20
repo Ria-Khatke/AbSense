@@ -10,7 +10,7 @@ namespace AbSense.Controllers
 
         public DashboardController(AbSenseDBcontext context)
         {
-        this.abSenseDBcontext= context;
+            this.abSenseDBcontext = context;
         }
 
         public IActionResult Staff_Dashboard()
@@ -38,17 +38,17 @@ namespace AbSense.Controllers
             var balance = abSenseDBcontext.HolidayBalances
             .FirstOrDefault(b => b.StaffInfoId == staff_id);
 
-            ViewBag.AllowedLeaves = balance != null ? balance.TotalAllowance: 0;
+            ViewBag.AllowedLeaves = balance != null ? balance.TotalAllowance : 0;
 
 
             var request = abSenseDBcontext.HolidayInfos;
-                var user_requests = request.Where (r=> r.StaffInfoId == staff_id)
-                .OrderByDescending(r=> r.CreatedAt)
-                .ToList();
+            var user_requests = request.Where(r => r.StaffInfoId == staff_id)
+            .OrderByDescending(r => r.CreatedAt)
+            .ToList();
             //This let the from data create into a list and organise it by the date created and show the most recent one first
 
-            ViewBag.RemainingLeaves = balance != null ? 
-                balance.TotalAllowance - balance.UsedLeaves: 0;
+            ViewBag.RemainingLeaves = balance != null ?
+                balance.TotalAllowance - balance.UsedLeaves : 0;
 
             return View(request);
 
@@ -58,14 +58,14 @@ namespace AbSense.Controllers
         [HttpPost]
 
         public IActionResult Book_leave(DateTime StartDate, DateTime EndDate, LeaveType leaveType, string? Reason)
-            //creates a method that allows staff to book a leave and store the parameters in the bracket.//
-        { 
+        //creates a method that allows staff to book a leave and store the parameters in the bracket.//
+        {
             var staffId = HttpContext.Session.GetInt32("StaffInfoId");
             //stores the staff id from teh current login session into the variable staffId//
             if (EndDate < StartDate)
             { //error validation to check the end date is not less than start date//
                 TempData["Error"] = "End date cannot be more before start date";
-                return RedirectToAction("staff_dashboard");
+
 
             }
 
@@ -89,13 +89,18 @@ namespace AbSense.Controllers
 
             TempData["Success"] = "Leave request submitted successfully.";
             return RedirectToAction("Staff_Dashboard");
+        }
             //shows a message when the leave request is submitted to the database and redirects the user back to the staff dashboard//
 
 
-
-
-        }
+        
 
 
     }
+
+
 }
+
+
+
+
