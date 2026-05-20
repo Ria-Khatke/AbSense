@@ -53,38 +53,43 @@ namespace AbSense.Controllers
             return View(request);
 
 
-
-            return View();
         }
 
         [HttpPost]
 
         public IActionResult Book_leave(DateTime StartDate, DateTime EndDate, LeaveType leaveType, string? Reason)
+            //creates a method that allows staff to book a leave and store the parameters in the bracket.//
         { 
             var staffId = HttpContext.Session.GetInt32("StaffInfoId");
-
+            //stores the staff id from teh current login session into the variable staffId//
             if (EndDate < StartDate)
+            { //error validation to check the end date is not less than start date//
                 TempData["Error"] = "End date cannot be more before start date";
+                return RedirectToAction("staff_dashboard");
+
+            }
 
 
 
             var leave_request = new HolidayInfo
+            //creates a new line in the holiday info database with the rows below and stored in variable leave_request//
             {
-                StaffInfoId = staffId.Value,
+                StaffInfoId = staffId.Value, //gets the value stored under staffID row with teh current person logged in //
                 StartDate = StartDate,
                 EndDate = EndDate,
                 LeaveType = leaveType,
                 Reason = Reason,
-                Status = LeaveStatus.Pending,
+                Status = LeaveStatus.Pending, //status of teh leave starts as pending until the manager changes it to approved or rejected//
                 CreatedAt = DateTime.Now,
                 UpdatedAt = DateTime.Now
             };
 
-            abSenseDBcontext.HolidayInfos.Add(leave_request);
+            abSenseDBcontext.HolidayInfos.Add(leave_request);//adds the leave_request to the database and save the changes for real//
             abSenseDBcontext.SaveChanges();
 
             TempData["Success"] = "Leave request submitted successfully.";
             return RedirectToAction("Staff_Dashboard");
+            //shows a message when the leave request is submitted to the database and redirects the user back to the staff dashboard//
 
 
 
